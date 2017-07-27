@@ -1,19 +1,17 @@
-[![GoDoc](https://godoc.org/github.com/didip/tollbooth?status.svg)](http://godoc.org/github.com/didip/tollbooth)
-[![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/didip/tollbooth/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/Q42Philips/tollbooth?status.svg)](http://godoc.org/github.com/Q42Philips/tollbooth)
+[![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/Q42Philips/tollbooth/master/LICENSE)
 
 ## Tollbooth
 
-This is a generic middleware to rate-limit HTTP requests.
-
-**NOTE:** This library is considered finished, any new activities are probably centered around `thirdparty` modules.
+This is a generic middleware to rate-limit HTTP requests. It's forked from [tollbooth](https://github.com/didip/tollbooth), removing unnecessary third-party dependencies.
 
 
-## Five Minutes Tutorial
+## Basic usage example
 ```go
 package main
 
 import (
-    "github.com/didip/tollbooth"
+    "github.com/Q42Philips/tollbooth"
     "net/http"
     "time"
 )
@@ -73,7 +71,3 @@ func main() {
 
 4. Tollbooth does not require external storage since it uses an algorithm called [Token Bucket](http://en.wikipedia.org/wiki/Token_bucket) [(Go library: golang.org/x/time/rate)](//godoc.org/golang.org/x/time/rate).
 
-
-# Other Web Frameworks
-
-Support for other web frameworks are defined under `/thirdparty` directory.
