@@ -17,6 +17,7 @@ func NewLimiter(max int64, ttl time.Duration) *Limiter {
 	limiter.StatusCode = 429
 	limiter.IPLookups = []string{"RemoteAddr", "X-Forwarded-For", "X-Real-IP"}
 	limiter.XForwardedForIndex = 0
+	limiter.RejectFunc = nil
 
 	limiter.tokenBucketsNoTTL = make(map[string]*rate.Limiter)
 
@@ -68,6 +69,9 @@ type Limiter struct {
 	// Default is 1. Using 0 will give the proxy IP (end of the list).
 	// Using -1 will give the original sender (start of the list).
 	XForwardedForIndex int
+
+	// A function to call when a request is rejected.
+	RejectFunc func()
 
 	// List of HTTP Methods to limit (GET, POST, PUT, etc.).
 	// Empty means limit all methods.

@@ -51,6 +51,9 @@ func main() {
     // Set to -1 to get the last or -2 to get the second-to-last.
     limiter.XForwardedForIndex = 0
 
+    // Add a function to be called when a request is rejected.
+    limiter.RejectFunc = func() { fmt.Println("A request was rejected") }
+ 
     // Limit only GET and POST requests.
     limiter.Methods = []string{"GET", "POST"}
 
