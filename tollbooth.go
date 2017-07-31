@@ -3,7 +3,6 @@ package tollbooth
 
 import (
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 
@@ -153,17 +152,9 @@ func BuildKeys(limiter *config.Limiter, r *http.Request) [][]string {
 	return sliceKeys
 }
 
-// SetResponseHeaders configures X-Rate-Limit-Limit and X-Rate-Limit-Duration
-func SetResponseHeaders(limiter *config.Limiter, w http.ResponseWriter) {
-	w.Header().Add("X-Rate-Limit-Limit", strconv.FormatInt(limiter.Max, 10))
-	w.Header().Add("X-Rate-Limit-Duration", limiter.TTL.String())
-}
-
 // LimitHandler is a middleware that performs rate-limiting given http.Handler struct.
 func LimitHandler(limiter *config.Limiter, next http.Handler) http.Handler {
 	middle := func(w http.ResponseWriter, r *http.Request) {
-		SetResponseHeaders(limiter, w)
-
 		httpError := LimitByRequest(limiter, r)
 		if httpError != nil {
 			w.Header().Add("Content-Type", limiter.MessageContentType)
